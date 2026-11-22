@@ -53,7 +53,6 @@ const UserSchema = new Schema<IUser>(
 );
 
 // Indexes
-UserSchema.index({ email: 1 }, { unique: true });
 UserSchema.index({ isActive: 1, deletedAt: 1 });
 
 // Prevent model recompilation during hot reload
