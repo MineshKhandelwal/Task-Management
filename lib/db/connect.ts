@@ -18,19 +18,8 @@ if (!global._mongooseConnection) {
 }
 
 export async function connectDB(): Promise<typeof mongoose> {
-  let cfUri: string | undefined;
-  try {
-    // Dynamic import to retrieve Cloudflare Workers runtime env if running under OpenNext
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const cf = await (Function('return import("@opennextjs/cloudflare")')() as Promise<any>);
-    cfUri = cf?.getCloudflareContext?.()?.env?.MONGODB_URI;
-  } catch {
-    // Not running under OpenNext or context unavailable
-  }
-
   const MONGODB_URI =
     process.env.MONGODB_URI ||
-    cfUri ||
     (globalThis as unknown as { MONGODB_URI?: string }).MONGODB_URI ||
     (globalThis as unknown as { process?: { env?: { MONGODB_URI?: string } } }).process?.env?.MONGODB_URI;
 
@@ -40,13 +29,15 @@ export async function connectDB(): Promise<typeof mongoose> {
     );
   }
 
-  if (cached.conn) {
+  if (cached.conn && mongoose.connection.readyState === 1) {
     return cached.conn;
   }
 
-  if (!cached.promise) {
+  if (!cached.promise || mongoose.connection.readyState === 0) {
     const opts = {
       bufferCommands: false,
+      serverSelectionTimeoutMS: 5000,
+      connectTimeoutMS: 5000,
     };
 
     cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongooseInstance) => {
