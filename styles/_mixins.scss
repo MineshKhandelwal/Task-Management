@@ -1,0 +1,25 @@
+// Layout & Utility Mixins
+// (Source of truth: docs/04-ui-design.md)
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin focus-ring {
+  outline: 2px solid var(--color-primary-container);
+  outline-offset: 1px;
+}

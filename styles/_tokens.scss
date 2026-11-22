@@ -1,0 +1,113 @@
+// SCSS Token Variables & Mixins for TaskFlow Design System
+// (Source of truth: docs/04-ui-design.md & _stitch_export/taskflow/DESIGN.md)
+
+// Breakpoint dimensions
+$bp-mobile: 672px;
+$bp-tablet: 672px;
+$bp-md: 768px;
+$bp-desktop: 1024px;
+$bp-wide: 1280px;
+
+// Media query mixins
+@mixin mobile {
+  @media (max-width: #{$bp-mobile - 1px}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: #{$bp-tablet}) {
+    @content;
+  }
+}
+
+@mixin md {
+  @media (min-width: #{$bp-md}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{$bp-desktop}) {
+    @content;
+  }
+}
+
+@mixin wide {
+  @media (min-width: #{$bp-wide}) {
+    @content;
+  }
+}
+
+// SCSS shortcuts for CSS custom properties
+$color-background: var(--color-background);
+$color-surface: var(--color-surface);
+$color-surface-bright: var(--color-surface-bright);
+$color-surface-dim: var(--color-surface-dim);
+
+$color-surface-container-lowest: var(--color-surface-container-lowest);
+$color-surface-container-low: var(--color-surface-container-low);
+$color-surface-container: var(--color-surface-container);
+$color-surface-container-high: var(--color-surface-container-high);
+$color-surface-container-highest: var(--color-surface-container-highest);
+$color-surface-variant: var(--color-surface-variant);
+
+$color-on-surface: var(--color-on-surface);
+$color-on-surface-variant: var(--color-on-surface-variant);
+$color-on-background: var(--color-on-background);
+$color-outline: var(--color-outline);
+$color-outline-variant: var(--color-outline-variant);
+$color-inverse-surface: var(--color-inverse-surface);
+$color-inverse-on-surface: var(--color-inverse-on-surface);
+
+$color-primary: var(--color-primary);
+$color-on-primary: var(--color-on-primary);
+$color-primary-container: var(--color-primary-container);
+$color-on-primary-container: var(--color-on-primary-container);
+$color-primary-fixed: var(--color-primary-fixed);
+$color-primary-fixed-dim: var(--color-primary-fixed-dim);
+$color-on-primary-fixed: var(--color-on-primary-fixed);
+$color-on-primary-fixed-variant: var(--color-on-primary-fixed-variant);
+$color-surface-tint: var(--color-surface-tint);
+$color-inverse-primary: var(--color-inverse-primary);
+
+$color-secondary: var(--color-secondary);
+$color-on-secondary: var(--color-on-secondary);
+$color-secondary-container: var(--color-secondary-container);
+$color-on-secondary-container: var(--color-on-secondary-container);
+$color-secondary-fixed: var(--color-secondary-fixed);
+$color-secondary-fixed-dim: var(--color-secondary-fixed-dim);
+$color-on-secondary-fixed: var(--color-on-secondary-fixed);
+$color-on-secondary-fixed-variant: var(--color-on-secondary-fixed-variant);
+
+$color-tertiary: var(--color-tertiary);
+$color-on-tertiary: var(--color-on-tertiary);
+$color-tertiary-container: var(--color-tertiary-container);
+$color-on-tertiary-container: var(--color-on-tertiary-container);
+$color-tertiary-fixed: var(--color-tertiary-fixed);
+$color-tertiary-fixed-dim: var(--color-tertiary-fixed-dim);
+$color-on-tertiary-fixed: var(--color-on-tertiary-fixed);
+$color-on-tertiary-fixed-variant: var(--color-on-tertiary-fixed-variant);
+
+$color-error: var(--color-error);
+$color-on-error: var(--color-on-error);
+$color-error-container: var(--color-error-container);
+$color-on-error-container: var(--color-on-error-container);
+
+$font-sans: var(--font-sans);
+$font-mono: var(--font-mono);
+
+$space-xs: var(--space-xs);
+$space-sm: var(--space-sm);
+$space-md: var(--space-md);
+$space-lg: var(--space-lg);
+$space-xl: var(--space-xl);
+$space-gutter: var(--space-gutter);
+$space-margin: var(--space-margin);
+
+$radius-none: var(--radius-none);
+$radius-sm: var(--radius-sm);
+
+$shadow-card: var(--shadow-card);
+$shadow-modal: var(--shadow-modal);
+$shadow-sm: var(--shadow-sm);
