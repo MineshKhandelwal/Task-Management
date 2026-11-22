@@ -1,0 +1,130 @@
+@use '@/styles/tokens' as *;
+
+.triggerBtn {
+  width: 100%;
+  height: 36px;
+  padding: 0 $space-sm;
+  display: flex;
+  align-items: center;
+  gap: $space-xs;
+  font-family: $font-sans;
+  font-size: 13px;
+  color: $color-on-surface-variant;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+
+  &:hover {
+    background-color: $color-surface-container-high;
+    color: $color-on-surface;
+  }
+
+  .icon {
+    font-size: 18px;
+  }
+}
+
+.widget {
+  background-color: $color-surface-container-lowest;
+  padding: $space-md;
+  border-radius: $radius-sm;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.inputWrapper {
+  position: relative;
+  background-color: $color-surface-container-low;
+  border-radius: 0;
+}
+
+.textarea {
+  width: 100%;
+  background: transparent;
+  padding: $space-sm;
+  font-family: $font-sans;
+  font-size: 13px;
+  line-height: 18px;
+  color: $color-on-surface;
+  border: none;
+  outline: none;
+  resize: none;
+  display: block;
+
+  &::placeholder {
+    color: $color-on-surface-variant;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.activeLine {
+  height: 2px;
+  width: 100%;
+  background-color: $color-primary-container;
+}
+
+.actionRow {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+}
+
+.submitBtn {
+  height: 32px;
+  padding: 0 $space-md;
+  background-color: $color-primary-container;
+  color: $color-on-primary;
+  font-family: $font-sans;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-xs;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+
+  &:hover:not(:disabled) {
+    background-color: $color-primary;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.cancelBtn {
+  height: 32px;
+  width: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $color-on-surface-variant;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+
+  &:hover {
+    background-color: $color-surface-container-high;
+    color: $color-on-surface;
+  }
+
+  .icon {
+    font-size: 18px;
+  }
+}
