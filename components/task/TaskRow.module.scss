@@ -1,0 +1,115 @@
+.row {
+  height: 48px;
+  border-bottom: 1px solid var(--color-outline-variant);
+  background-color: var(--color-surface-container-lowest);
+  transition: background-color 150ms ease;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--color-surface-container-low);
+  }
+
+  &.overdue {
+    border-left: 3px solid var(--color-error);
+  }
+
+  &.completed {
+    opacity: 0.6;
+
+    .taskTitle {
+      text-decoration: line-through;
+    }
+  }
+}
+
+.cell {
+  padding-left: var(--space-md);
+  padding-right: var(--space-md);
+  font-family: var(--font-sans);
+  font-size: var(--text-body-lg);
+  line-height: var(--lh-body-lg);
+  color: var(--color-on-surface);
+  vertical-align: middle;
+}
+
+.checkbox {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--color-primary-container);
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+.titleGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  min-width: 0;
+}
+
+.taskId {
+  font-family: var(--font-mono);
+  font-size: var(--text-code-md);
+  line-height: var(--lh-code-md);
+  color: var(--color-on-surface-variant);
+  flex-shrink: 0;
+}
+
+.taskTitle {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.assigneeGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  min-width: 0;
+
+  .assigneeName {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.dueDateText {
+  font-family: var(--font-mono);
+  font-size: var(--text-code-md);
+  line-height: var(--lh-code-md);
+  color: var(--color-on-surface-variant);
+  white-space: nowrap;
+
+  &.overdueText {
+    color: var(--color-error);
+    font-weight: 500;
+  }
+}
+
+.actionsCell {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.actionBtn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  color: var(--color-on-surface-variant);
+  transition: color 150ms ease;
+
+  &:hover {
+    color: var(--color-primary-container);
+  }
+
+  &.deleteBtn:hover {
+    color: var(--color-error);
+  }
+
+  .icon {
+    font-size: 18px;
+    vertical-align: middle;
+  }
+}

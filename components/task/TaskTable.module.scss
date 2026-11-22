@@ -1,0 +1,67 @@
+.tableContainer {
+  width: 100%;
+  background-color: var(--color-surface-container-lowest);
+  border: 1px solid var(--color-outline-variant);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+}
+
+.tableWrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  min-width: 840px;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.headerRow {
+  height: 40px;
+  background-color: var(--color-surface-container-high);
+  border-bottom: 1px solid var(--color-outline-variant);
+}
+
+.th {
+  padding-left: var(--space-md);
+  padding-right: var(--space-md);
+  font-family: var(--font-sans);
+  font-size: var(--text-label-md);
+  line-height: var(--lh-label-md);
+  font-weight: var(--fw-label-md);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-label-md);
+  color: var(--color-on-surface-variant);
+  user-select: none;
+  vertical-align: middle;
+
+  &.sortable {
+    cursor: pointer;
+
+    &:hover {
+      color: var(--color-on-surface);
+    }
+  }
+}
+
+.sortContent {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.sortIcon {
+  font-size: 16px;
+  line-height: 1;
+}
+
+.checkbox {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--color-primary-container);
+  cursor: pointer;
+  vertical-align: middle;
+}
