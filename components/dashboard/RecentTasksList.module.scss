@@ -1,0 +1,107 @@
+@use '@/styles/tokens' as *;
+
+.container {
+  background-color: $color-surface-container-lowest;
+  border-radius: $radius-sm;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  padding: $space-md;
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  font-family: $font-sans;
+  font-size: 14px;
+  font-weight: 600;
+  color: $color-on-surface;
+  margin: 0;
+}
+
+.viewAllLink {
+  font-family: $font-sans;
+  font-size: 12px;
+  font-weight: 600;
+  color: $color-primary-container;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $space-sm $space-xs;
+  border-radius: 0;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+
+  &:hover {
+    background-color: $color-surface-container-low;
+  }
+}
+
+.divider {
+  height: 1px;
+  background-color: $color-surface-container-high;
+  width: 100%;
+}
+
+.leftGroup {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+  min-width: 0;
+  flex: 1;
+}
+
+.taskId {
+  font-family: $font-mono;
+  font-size: 11px;
+  color: $color-on-surface-variant;
+  flex-shrink: 0;
+  text-transform: uppercase;
+}
+
+.taskTitle {
+  font-family: $font-sans;
+  font-size: 14px;
+  color: $color-on-surface;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
+}
+
+.time {
+  font-family: $font-sans;
+  font-size: 12px;
+  color: $color-on-surface-variant;
+  flex-shrink: 0;
+  margin-left: $space-md;
+}
+
+.empty {
+  font-family: $font-sans;
+  font-size: 12px;
+  color: $color-on-surface-variant;
+  font-style: italic;
+  padding: $space-md 0;
+}

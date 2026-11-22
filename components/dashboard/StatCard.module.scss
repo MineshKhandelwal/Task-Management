@@ -1,0 +1,49 @@
+@use '@/styles/tokens' as *;
+
+.card {
+  background-color: $color-surface-container-lowest;
+  border-radius: $radius-sm;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.accentStripe {
+  width: 4px;
+  flex-shrink: 0;
+}
+
+.content {
+  padding: $space-md;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  min-width: 0;
+}
+
+.value {
+  font-family: $font-sans;
+  font-size: 36px;
+  line-height: 44px;
+  font-weight: 300;
+  color: $color-on-surface;
+  font-variant-numeric: tabular-nums;
+  margin: 0;
+}
+
+.label {
+  font-family: $font-sans;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: $color-on-surface-variant;
+  margin-top: $space-xs;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

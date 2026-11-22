@@ -1,0 +1,91 @@
+@use '@/styles/tokens' as *;
+
+.container {
+  background-color: $color-surface-container-lowest;
+  border-radius: $radius-sm;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  padding: $space-md;
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  font-family: $font-sans;
+  font-size: 14px;
+  font-weight: 600;
+  color: $color-on-surface;
+  margin: 0;
+}
+
+.subtitle {
+  font-family: $font-sans;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: $color-on-surface-variant;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xs;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+  padding: $space-xs 0;
+}
+
+.name {
+  width: 120px;
+  flex-shrink: 0;
+  font-family: $font-sans;
+  font-size: 12px;
+  color: $color-on-surface;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.barTrack {
+  flex: 1;
+  height: 16px;
+  background-color: $color-surface-container-low;
+  border-radius: 0;
+  overflow: hidden;
+}
+
+.barFill {
+  height: 100%;
+  background-color: $color-primary-container;
+  border-radius: 0;
+  transition: width 0.5s ease;
+}
+
+.count {
+  width: 32px;
+  text-align: right;
+  font-family: $font-mono;
+  font-size: 12px;
+  color: $color-on-surface;
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+}
+
+.empty {
+  font-family: $font-sans;
+  font-size: 12px;
+  color: $color-on-surface-variant;
+  font-style: italic;
+  padding: $space-md 0;
+}
