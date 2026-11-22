@@ -1,18 +1,27 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Modal, Button, Input, Textarea, Select, useToast } from "@/components/ui";
+import {
+  Modal,
+  Button,
+  Input,
+  Textarea,
+  Select,
+  ConfirmDialog,
+  useToast,
+} from "@/components/ui";
 import { createTaskSchema } from "@/lib/validations/taskSchema";
 import {
   useCreateTaskMutation,
   useUpdateTaskMutation,
+  useDeleteTaskMutation,
   TaskItem,
 } from "@/store/services/tasksApi";
 import { useGetStatusesQuery } from "@/store/services/statusesApi";
 import { useGetUsersQuery } from "@/store/services/usersApi";
-import { toInputDateFormat } from "@/lib/utils/dateUtils";
+import { toInputDateFormat, formatDate } from "@/lib/utils/dateUtils";
 import styles from "./TaskFormModal.module.scss";
 
 interface TaskFormData {
@@ -41,12 +50,14 @@ export default function TaskFormModal({
 }: TaskFormModalProps) {
   const isEditing = !!taskToEdit;
   const toast = useToast();
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
   const { data: statuses } = useGetStatusesQuery();
   const { data: users } = useGetUsersQuery({ isActive: true });
 
   const [createTask, { isLoading: isCreating }] = useCreateTaskMutation();
   const [updateTask, { isLoading: isUpdating }] = useUpdateTaskMutation();
+  const [deleteTask, { isLoading: isDeleting }] = useDeleteTaskMutation();
   const isSubmitting = isCreating || isUpdating;
 
   const defaultStatusId =
@@ -111,7 +122,7 @@ export default function TaskFormModal({
             assignedTo: data.assignedTo || null,
           },
         }).unwrap();
-        toast.success(`Task '${data.title}' updated successfully.`);
+        toast.success(`Task '${data.title}' updated.`);
       } else {
         await createTask({
           title: data.title,
@@ -121,7 +132,7 @@ export default function TaskFormModal({
           dueDate: data.dueDate ? new Date(data.dueDate).toISOString() : null,
           assignedTo: data.assignedTo || null,
         }).unwrap();
-        toast.success(`Task '${data.title}' created successfully.`);
+        toast.success(`Task '${data.title}' created.`);
       }
 
       onSuccess?.();
@@ -135,101 +146,170 @@ export default function TaskFormModal({
     }
   };
 
+  const handleDeleteConfirm = async () => {
+    if (!taskToEdit) return;
+    try {
+      await deleteTask(taskToEdit._id).unwrap();
+      toast.success(`Task '${taskToEdit.title}' deleted.`);
+      setIsDeleteDialogOpen(false);
+      onSuccess?.();
+      onClose();
+    } catch {
+      toast.error("Failed to delete task.");
+    }
+  };
+
+  const modalTitle = isEditing
+    ? `Edit Task — TASK-${taskToEdit._id.slice(-4).toUpperCase()}`
+    : "Create Task";
+
   const footer = (
     <div className={styles.footerActions}>
-      <Button
-        type="button"
-        variant="secondary"
-        onClick={onClose}
-        disabled={isSubmitting}
-      >
-        Cancel
-      </Button>
-      <Button
-        type="submit"
-        form="task-modal-form"
-        variant="primary"
-        isLoading={isSubmitting}
-      >
-        {isEditing ? "Save Changes" : "Create Task"}
-      </Button>
+      {isEditing && (
+        <Button
+          type="button"
+          variant="danger"
+          onClick={() => setIsDeleteDialogOpen(true)}
+          disabled={isSubmitting || isDeleting}
+        >
+          Delete Task
+        </Button>
+      )}
+      <div className={styles.rightFooterActions}>
+        <Button
+          type="button"
+          variant="secondary"
+          onClick={onClose}
+          disabled={isSubmitting || isDeleting}
+        >
+          Cancel
+        </Button>
+        <Button
+          type="submit"
+          form="task-modal-form"
+          variant="primary"
+          isLoading={isSubmitting}
+        >
+          {isEditing ? "Save Changes" : "Create Task"}
+        </Button>
+      </div>
     </div>
   );
 
   return (
-    <Modal
-      isOpen={isOpen}
-      onClose={onClose}
-      title={isEditing ? "Edit Task" : "Create Task"}
-      footer={footer}
-      maxWidth="640px"
-    >
-      <form
-        id="task-modal-form"
-        onSubmit={handleSubmit(onSubmit)}
-        className={styles.form}
+    <>
+      <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+        title={modalTitle}
+        footer={footer}
+        maxWidth="640px"
       >
-        <Input
-          label="Title"
-          placeholder="e.g. Migrate authentication gateway to OAuth 2.1"
-          required
-          error={errors.title?.message}
-          {...register("title")}
-        />
-
-        <Textarea
-          label="Description"
-          placeholder="Add details, acceptance criteria, or technical notes..."
-          rows={3}
-          error={errors.description?.message}
-          {...register("description")}
-        />
-
-        <div className={styles.row2}>
-          <Select
-            label="Status"
-            error={errors.status?.message}
-            options={(statuses || []).map((s) => ({
-              value: s._id,
-              label: s.name,
-            }))}
-            {...register("status")}
-          />
-
-          <Select
-            label="Priority"
-            error={errors.priority?.message}
-            options={[
-              { value: "high", label: "High" },
-              { value: "medium", label: "Medium" },
-              { value: "low", label: "Low" },
-            ]}
-            {...register("priority")}
-          />
-        </div>
-
-        <div className={styles.row2}>
+        <form
+          id="task-modal-form"
+          onSubmit={handleSubmit(onSubmit)}
+          className={styles.form}
+        >
           <Input
-            label="Due Date"
-            type="date"
-            error={errors.dueDate?.message}
-            {...register("dueDate")}
+            label="Title"
+            placeholder="e.g. Migrate authentication gateway to OAuth 2.1"
+            required
+            error={errors.title?.message}
+            {...register("title")}
           />
 
-          <Select
-            label="Assignee"
-            error={errors.assignedTo?.message}
-            options={[
-              { value: "", label: "Unassigned" },
-              ...(users || []).map((u) => ({
-                value: u._id,
-                label: u.name,
-              })),
-            ]}
-            {...register("assignedTo")}
+          <Textarea
+            label="Description"
+            placeholder="Add a more detailed description..."
+            rows={3}
+            error={errors.description?.message}
+            {...register("description")}
           />
-        </div>
-      </form>
-    </Modal>
+
+          <div className={styles.row2}>
+            <Select
+              label="Status"
+              error={errors.status?.message}
+              options={(statuses || []).map((s) => ({
+                value: s._id,
+                label: s.name,
+              }))}
+              {...register("status")}
+            />
+
+            <Select
+              label="Priority"
+              error={errors.priority?.message}
+              options={[
+                { value: "high", label: "High" },
+                { value: "medium", label: "Medium" },
+                { value: "low", label: "Low" },
+              ]}
+              {...register("priority")}
+            />
+          </div>
+
+          <div className={styles.row2}>
+            <Input
+              label="Due Date"
+              type="date"
+              error={errors.dueDate?.message}
+              {...register("dueDate")}
+            />
+
+            <Select
+              label="Assignee"
+              error={errors.assignedTo?.message}
+              options={[
+                { value: "", label: "Unassigned" },
+                ...(users || []).map((u) => ({
+                  value: u._id,
+                  label: u.name,
+                })),
+              ]}
+              {...register("assignedTo")}
+            />
+          </div>
+
+          {/* Audit Metadata in Edit Mode */}
+          {isEditing && taskToEdit && (
+            <div className={styles.metadataSection}>
+              {taskToEdit.createdBy && (
+                <div className={styles.metadataItem}>
+                  <span>Created by:</span>
+                  <strong>{taskToEdit.createdBy.name}</strong>
+                </div>
+              )}
+              {taskToEdit.createdAt && (
+                <div className={styles.metadataItem}>
+                  <span>Created:</span>
+                  <strong>{formatDate(taskToEdit.createdAt)}</strong>
+                </div>
+              )}
+              {taskToEdit.updatedAt && (
+                <div className={styles.metadataItem}>
+                  <span>Last updated:</span>
+                  <strong>{formatDate(taskToEdit.updatedAt)}</strong>
+                </div>
+              )}
+            </div>
+          )}
+        </form>
+      </Modal>
+
+      {/* Delete Confirmation Dialog */}
+      {isDeleteDialogOpen && taskToEdit && (
+        <ConfirmDialog
+          isOpen={isDeleteDialogOpen}
+          onClose={() => setIsDeleteDialogOpen(false)}
+          onConfirm={handleDeleteConfirm}
+          title="Delete Task"
+          message={`Are you sure you want to delete '${taskToEdit.title}'? This action can be undone by an administrator.`}
+          confirmLabel="Delete Task"
+          variant="danger"
+          isLoading={isDeleting}
+        />
+      )}
+    </>
   );
 }
