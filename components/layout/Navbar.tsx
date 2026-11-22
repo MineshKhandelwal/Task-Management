@@ -26,6 +26,7 @@ export default function Navbar({
   const pathname = usePathname();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
   // Hook into Redux store current user
   const {
@@ -110,13 +111,45 @@ export default function Navbar({
               >
                 Board
               </Link>
-              <Link
-                href="/settings/users"
-                className={`${styles.navLink} ${resolvedPage === "settings" ? styles.active : ""}`}
-                aria-current={resolvedPage === "settings" ? "page" : undefined}
+              <div
+                className={styles.settingsNavWrapper}
+                onMouseEnter={() => setIsSettingsOpen(true)}
+                onMouseLeave={() => setIsSettingsOpen(false)}
               >
-                Settings
-              </Link>
+                <Link
+                  href="/settings/users"
+                  className={`${styles.navLink} ${resolvedPage === "settings" ? styles.active : ""}`}
+                  aria-current={resolvedPage === "settings" ? "page" : undefined}
+                >
+                  Settings
+                  <span className={`material-symbols-outlined ${styles.settingsChevron}`}>
+                    expand_more
+                  </span>
+                </Link>
+                <div
+                  className={`${styles.settingsDropdown} ${isSettingsOpen ? styles.dropdownVisible : ""}`}
+                  role="menu"
+                >
+                  <Link
+                    href="/settings/users"
+                    className={`${styles.settingsDropdownItem} ${pathname.startsWith("/settings/users") ? styles.activeItem : ""}`}
+                    onClick={() => setIsSettingsOpen(false)}
+                    role="menuitem"
+                  >
+                    <span className="material-symbols-outlined">group</span>
+                    <span>Users</span>
+                  </Link>
+                  <Link
+                    href="/settings/statuses"
+                    className={`${styles.settingsDropdownItem} ${pathname.startsWith("/settings/statuses") ? styles.activeItem : ""}`}
+                    onClick={() => setIsSettingsOpen(false)}
+                    role="menuitem"
+                  >
+                    <span className="material-symbols-outlined">label</span>
+                    <span>Statuses</span>
+                  </Link>
+                </div>
+              </div>
             </nav>
           </div>
 

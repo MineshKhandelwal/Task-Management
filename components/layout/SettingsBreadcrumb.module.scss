@@ -1,3 +1,12 @@
+@use '@/styles/tokens' as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+  width: 100%;
+}
+
 .breadcrumb {
   display: flex;
   align-items: center;
@@ -31,5 +40,44 @@
   .current {
     color: var(--color-on-surface);
     font-weight: var(--fw-label-md);
+  }
+}
+
+.navTabs {
+  display: flex;
+  align-items: center;
+  gap: $space-xs;
+  border-bottom: 1px solid var(--color-outline-variant);
+  margin-top: $space-xs;
+}
+
+.tab {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-xs;
+  padding: 8px $space-md;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-on-surface-variant);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: all 150ms ease;
+
+  .tabIcon {
+    font-size: 18px;
+  }
+
+  &:hover {
+    color: var(--color-on-surface);
+    background-color: var(--color-surface-container);
+  }
+
+  &.active {
+    color: var(--color-primary-container);
+    border-bottom-color: var(--color-primary-container);
+    font-weight: 600;
   }
 }

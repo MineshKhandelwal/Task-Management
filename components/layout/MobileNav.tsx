@@ -2,6 +2,7 @@
 
 import React, { useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import styles from "./MobileNav.module.scss";
 
 interface MobileNavProps {
@@ -11,6 +12,8 @@ interface MobileNavProps {
 }
 
 export default function MobileNav({ isOpen, onClose, currentPage }: MobileNavProps) {
+  const pathname = usePathname();
+
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
@@ -24,6 +27,9 @@ export default function MobileNav({ isOpen, onClose, currentPage }: MobileNavPro
   }, [isOpen, onClose]);
 
   if (!isOpen) return null;
+
+  const isUsers = pathname === "/settings/users";
+  const isStatuses = pathname === "/settings/statuses";
 
   return (
     <div className={styles.overlay} onClick={onClose}>
@@ -55,6 +61,26 @@ export default function MobileNav({ isOpen, onClose, currentPage }: MobileNavPro
           onClick={onClose}
         >
           Settings
+        </Link>
+        <Link
+          href="/settings/users"
+          className={`${styles.subNavLink} ${isUsers ? styles.active : ""}`}
+          onClick={onClose}
+        >
+          <span className="material-symbols-outlined" style={{ fontSize: "16px" }}>
+            group
+          </span>
+          <span>Users</span>
+        </Link>
+        <Link
+          href="/settings/statuses"
+          className={`${styles.subNavLink} ${isStatuses ? styles.active : ""}`}
+          onClick={onClose}
+        >
+          <span className="material-symbols-outlined" style={{ fontSize: "16px" }}>
+            label
+          </span>
+          <span>Statuses</span>
         </Link>
       </div>
     </div>
