@@ -1,0 +1,95 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  width: 100%;
+}
+
+.colorGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.colorLabel {
+  font-family: var(--font-sans);
+  font-size: var(--text-body-md);
+  line-height: var(--lh-body-md);
+  font-weight: var(--fw-label-md);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-label-md);
+  color: var(--color-on-surface-variant);
+}
+
+.colorRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.swatchPreview {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-none);
+  border: 1px solid var(--color-outline-variant);
+  flex-shrink: 0;
+}
+
+.presets {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  flex-wrap: wrap;
+  margin-top: var(--space-xs);
+}
+
+.presetBtn {
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-none);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 100ms ease;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  &.activePreset {
+    outline: 2px solid var(--color-on-surface);
+    outline-offset: 1px;
+  }
+}
+
+.checkboxGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding-top: var(--space-xs);
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-family: var(--font-sans);
+  font-size: var(--text-body-lg);
+  color: var(--color-on-surface);
+  cursor: pointer;
+  user-select: none;
+
+  input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--color-primary-container);
+    cursor: pointer;
+  }
+}
+
+.footerActions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-sm);
+  width: 100%;
+}

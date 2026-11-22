@@ -1,0 +1,197 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  width: 100%;
+}
+
+.tabList {
+  display: inline-flex;
+  align-self: flex-start;
+  background-color: var(--color-surface-container-highest);
+  padding: 1px;
+  gap: 1px;
+  border-radius: var(--radius-none);
+}
+
+.tabBtn {
+  height: 40px;
+  padding-left: var(--space-lg);
+  padding-right: var(--space-lg);
+  border-radius: var(--radius-none);
+  border: none;
+  font-family: var(--font-sans);
+  font-size: var(--text-label-lg);
+  line-height: var(--lh-label-lg);
+  font-weight: var(--fw-label-lg);
+  cursor: pointer;
+  transition: all 150ms ease;
+  background-color: var(--color-surface-container-lowest);
+  color: var(--color-on-surface-variant);
+
+  &:hover:not(.activeTab) {
+    background-color: var(--color-surface-container);
+  }
+
+  &.activeTab {
+    background-color: var(--color-primary-container);
+    color: var(--color-on-primary);
+  }
+}
+
+.tableWrapper {
+  width: 100%;
+  overflow-x: auto;
+  background-color: var(--color-surface-container-lowest);
+  border: 1px solid var(--color-outline-variant);
+  box-shadow: var(--shadow-sm);
+}
+
+.table {
+  min-width: 720px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-surface-container-highest);
+  gap: 1px;
+}
+
+.headerRow {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  align-items: center;
+  height: 48px;
+  padding-left: var(--space-md);
+  padding-right: var(--space-md);
+  background-color: var(--color-surface-container-high);
+  font-family: var(--font-sans);
+  font-size: var(--text-label-md);
+  line-height: var(--lh-label-md);
+  font-weight: var(--fw-label-md);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-label-md);
+  color: var(--color-on-surface-variant);
+  user-select: none;
+}
+
+.dataRow {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  align-items: center;
+  height: 48px;
+  padding-left: var(--space-md);
+  padding-right: var(--space-md);
+  background-color: var(--color-surface-container-lowest);
+  transition: background-color 150ms ease;
+
+  &:hover {
+    background-color: var(--color-surface-container-low);
+  }
+
+  &.inactiveRow {
+    color: var(--color-on-surface-variant);
+  }
+}
+
+.colAvatar {
+  grid-column: span 1 / span 1;
+}
+
+.colName {
+  grid-column: span 3 / span 3;
+  font-family: var(--font-sans);
+  font-size: var(--text-body-lg);
+  line-height: var(--lh-body-lg);
+  color: var(--color-on-surface);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: var(--space-sm);
+}
+
+.colEmail {
+  grid-column: span 4 / span 4;
+  font-family: var(--font-mono);
+  font-size: var(--text-code-md);
+  line-height: var(--lh-code-md);
+  color: var(--color-on-surface-variant);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: var(--space-sm);
+}
+
+.colRole {
+  grid-column: span 2 / span 2;
+}
+
+.colActions {
+  grid-column: span 2 / span 2;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-sm);
+}
+
+.actionBtn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-on-surface-variant);
+  transition: color 150ms ease;
+
+  &:hover {
+    color: var(--color-primary-container);
+  }
+
+  &.danger:hover {
+    color: var(--color-error);
+  }
+
+  .icon {
+    font-size: 18px;
+  }
+}
+
+.roleChip {
+  display: inline-flex;
+  align-items: center;
+  height: 20px;
+  padding-left: var(--space-sm);
+  padding-right: var(--space-sm);
+  border-radius: var(--radius-none);
+  font-family: var(--font-sans);
+  font-size: var(--text-label-md);
+  font-weight: var(--fw-label-md);
+  line-height: 1;
+  white-space: nowrap;
+
+  &.admin {
+    background-color: var(--color-primary-fixed);
+    color: var(--color-on-primary-fixed-variant);
+  }
+
+  &.lead {
+    background-color: var(--color-secondary-fixed);
+    color: var(--color-on-secondary-fixed-variant);
+  }
+
+  &.pm {
+    background-color: var(--color-tertiary-fixed);
+    color: var(--color-on-tertiary-fixed-variant);
+  }
+
+  &.defaultRole {
+    background-color: var(--color-surface-container-high);
+    color: var(--color-on-surface);
+  }
+
+  &.inactiveRole {
+    background-color: var(--color-error-container);
+    color: var(--color-on-error-container);
+  }
+}
