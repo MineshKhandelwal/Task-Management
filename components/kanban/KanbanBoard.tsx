@@ -67,31 +67,35 @@ export default function KanbanBoard({
 
   if (isLoading) {
     return (
-      <div className={styles.board}>
-        {[1, 2, 3, 4].map((col) => (
-          <div key={col} className={styles.skeletonColumn}>
-            <div className={styles.skeletonHeader} />
-            <div className={styles.skeletonCard} />
-            <div className={styles.skeletonCard} />
-            <div className={styles.skeletonCard} />
-          </div>
-        ))}
+      <div className={styles.boardContainer}>
+        <div className={styles.board}>
+          {[1, 2, 3, 4].map((col) => (
+            <div key={col} className={styles.skeletonColumn}>
+              <div className={styles.skeletonHeader} />
+              <div className={styles.skeletonCard} />
+              <div className={styles.skeletonCard} />
+              <div className={styles.skeletonCard} />
+            </div>
+          ))}
+        </div>
       </div>
     );
   }
 
   return (
-    <div className={styles.board}>
-      {sortedStatuses.map((status) => (
-        <KanbanColumn
-          key={status._id}
-          status={status}
-          statuses={sortedStatuses}
-          tasks={tasksByStatus[status._id] || []}
-          onTaskClick={onTaskClick}
-          onStatusChange={handleStatusChange}
-        />
-      ))}
+    <div className={styles.boardContainer}>
+      <div className={styles.board}>
+        {sortedStatuses.map((status) => (
+          <KanbanColumn
+            key={status._id}
+            status={status}
+            statuses={sortedStatuses}
+            tasks={tasksByStatus[status._id] || []}
+            onTaskClick={onTaskClick}
+            onStatusChange={handleStatusChange}
+          />
+        ))}
+      </div>
     </div>
   );
 }

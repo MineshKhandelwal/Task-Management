@@ -3,19 +3,19 @@
 .card {
   position: relative;
   background-color: $color-surface-container-lowest;
-  padding: $space-md;
+  padding: 10px 12px;
   border-radius: $radius-sm;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
   display: flex;
   flex-direction: column;
-  gap: $space-sm;
+  gap: 6px;
   overflow: hidden;
   cursor: pointer;
   border: 1px solid rgba(0, 0, 0, 0.04);
   transition: box-shadow 0.15s ease, transform 0.1s ease;
 
   &:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
   }
 
   &.completed {
@@ -46,7 +46,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-left: $space-xs;
+  padding-left: 2px;
 }
 
 .taskId {
@@ -58,10 +58,10 @@
 
 .title {
   font-family: $font-sans;
-  font-size: 14px;
-  line-height: 20px;
+  font-size: 13px;
+  line-height: 18px;
   color: $color-on-surface;
-  padding-left: $space-xs;
+  padding-left: 2px;
   margin: 0;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -70,27 +70,15 @@
   font-weight: 500;
 }
 
-.description {
-  font-family: $font-sans;
-  font-size: 12px;
-  line-height: 16px;
-  color: $color-on-surface-variant;
-  padding-left: $space-xs;
-  margin: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 .bottomRow {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-left: $space-xs;
-  padding-top: $space-xs;
+  padding-left: 2px;
+  padding-top: 6px;
   border-top: 1px solid rgba(0, 0, 0, 0.04);
-  margin-top: $space-xs;
-  gap: $space-sm;
+  margin-top: 2px;
+  gap: 6px;
 }
 
 .assigneeGroup {
@@ -102,7 +90,7 @@
 }
 
 .assigneeName {
-  font-size: 12px;
+  font-size: 11px;
   color: $color-on-surface-variant;
   white-space: nowrap;
   overflow: hidden;
@@ -110,7 +98,7 @@
 }
 
 .unassigned {
-  font-size: 12px;
+  font-size: 11px;
   color: $color-outline;
   font-style: italic;
 }
@@ -118,7 +106,7 @@
 .rightGroup {
   display: flex;
   align-items: center;
-  gap: $space-sm;
+  gap: 6px;
   flex-shrink: 0;
 }
 
@@ -137,7 +125,7 @@
 }
 
 .warningIcon {
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .statusSelectWrapper {
@@ -147,11 +135,11 @@
 
 .statusSelect {
   font-family: $font-sans;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  padding: 2px 18px 2px 6px;
+  padding: 1px 16px 1px 5px;
   border-radius: $radius-sm;
   border: 1px solid $color-outline-variant;
   background-color: $color-surface-container-high;
@@ -159,7 +147,7 @@
   cursor: pointer;
   appearance: none;
   -webkit-appearance: none;
-  line-height: 16px;
+  line-height: 15px;
 
   &:focus {
     outline: none;
@@ -169,10 +157,10 @@
 
 .selectArrow {
   position: absolute;
-  right: 2px;
+  right: 1px;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 14px;
+  font-size: 13px;
   color: $color-on-surface-variant;
   pointer-events: none;
 }

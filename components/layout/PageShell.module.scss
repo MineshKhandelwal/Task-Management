@@ -1,13 +1,16 @@
 .wrapper {
   min-height: 100vh;
+  width: 100%;
   display: flex;
   flex-direction: column;
   background-color: var(--color-surface-container-low);
+  overflow-x: hidden;
 }
 
 .main {
   width: 100%;
-  flex: 1;
+  flex: 1 0 auto;
+  min-height: 0;
   padding-top: 48px; // navbar height
   padding-left: var(--space-margin);
   padding-right: var(--space-margin);

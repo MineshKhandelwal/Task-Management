@@ -68,11 +68,6 @@ export default function KanbanCard({
       {/* Task Title */}
       <p className={styles.title}>{task.title}</p>
 
-      {/* Description Excerpt (if present) */}
-      {task.description && (
-        <p className={styles.description}>{task.description}</p>
-      )}
-
       {/* Bottom Row: Assignee, Due Date & Quick Status Changer */}
       <div className={styles.bottomRow}>
         <div className={styles.assigneeGroup}>

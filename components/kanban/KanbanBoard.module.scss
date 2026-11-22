@@ -1,22 +1,46 @@
 @use '@/styles/tokens' as *;
 
+.boardContainer {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: $space-lg;
+  -webkit-overflow-scrolling: touch;
+
+  /* Sleek custom scrollbars */
+  &::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--color-surface-container-low);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--color-outline-variant);
+    border-radius: 0;
+
+    &:hover {
+      background: var(--color-outline);
+    }
+  }
+
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-outline-variant) var(--color-surface-container-low);
+}
+
 .board {
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
   gap: $space-md;
-  padding-bottom: $space-xl;
-  align-items: start;
-
-  @media (min-width: 768px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @media (min-width: 1024px) {
-    grid-template-columns: repeat(4, 1fr);
-  }
+  align-items: flex-start;
+  width: max-content;
+  min-width: 100%;
 }
 
 .skeletonColumn {
+  width: 272px;
+  min-width: 272px;
+  flex-shrink: 0;
   background-color: $color-surface-container;
   min-height: 480px;
   padding: $space-md;
@@ -32,7 +56,7 @@
 }
 
 .skeletonCard {
-  height: 100px;
+  height: 80px;
   background-color: $color-surface-container-lowest;
   border-radius: $radius-sm;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
