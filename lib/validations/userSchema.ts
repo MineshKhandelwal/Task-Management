@@ -17,6 +17,10 @@ export const createUserSchema = z.object({
     .max(100, "Role cannot exceed 100 characters")
     .optional()
     .default(""),
+  avatarColor: z
+    .string()
+    .regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/, "Invalid hex color format")
+    .optional(),
 });
 
 export const updateUserSchema = z.object({
@@ -36,6 +40,10 @@ export const updateUserSchema = z.object({
     .string()
     .trim()
     .max(100, "Role cannot exceed 100 characters")
+    .optional(),
+  avatarColor: z
+    .string()
+    .regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/, "Invalid hex color format")
     .optional(),
   isActive: z.boolean().optional(),
 });

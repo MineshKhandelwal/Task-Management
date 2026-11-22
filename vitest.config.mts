@@ -5,10 +5,16 @@ import path from "path";
 export default defineConfig({
   plugins: [react()],
   test: {
+    pool: "threads",
     environment: "jsdom",
     globals: true,
     setupFiles: ["./tests/setup.ts"],
     include: ["tests/unit/**/*.test.ts", "tests/components/**/*.test.tsx"],
+    server: {
+      deps: {
+        inline: [/@csstools/, /@asamuzakjp/],
+      },
+    },
     coverage: {
       provider: "v8",
       reporter: ["text", "json", "html"],
