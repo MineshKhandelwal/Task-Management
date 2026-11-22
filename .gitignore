@@ -30,9 +30,13 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# local env files
-.env*.local
-.env
+# env files
+.env*
+!.env.example
+
+# playwright
+playwright-report/
+test-results/
 
 # vercel
 .vercel
@@ -41,8 +45,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# cache
-.cache
-.eslintcache
-.turbo
-.swc
+# stitch
+_stitch_export/
+
+#docs
+docs/
