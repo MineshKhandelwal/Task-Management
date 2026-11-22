@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Spinner, EmptyState } from "@/components/ui";
+import { Skeleton, EmptyState, ErrorState } from "@/components/ui";
 import {
   useGetStatusesQuery,
   useUpdateStatusMutation,
@@ -20,7 +20,7 @@ export default function StatusList({
   onEditStatus,
   onDeleteStatus,
 }: StatusListProps) {
-  const { data: statuses, isLoading } = useGetStatusesQuery();
+  const { data: statuses, isLoading, error, refetch } = useGetStatusesQuery();
   const [updateStatus] = useUpdateStatusMutation();
 
   const statusList = statuses || [];
@@ -35,10 +35,34 @@ export default function StatusList({
     });
   };
 
+  if (error) {
+    return (
+      <div style={{ padding: "32px 0" }}>
+        <ErrorState
+          title="Failed to load statuses"
+          message="Could not load workflow statuses. Please try again."
+          onRetry={refetch}
+        />
+      </div>
+    );
+  }
+
   if (isLoading) {
     return (
-      <div style={{ padding: "40px", display: "flex", justifyContent: "center" }}>
-        <Spinner size="lg" />
+      <div className={styles.list}>
+        {Array.from({ length: 4 }).map((_, i) => (
+          <div key={i} className={styles.row}>
+            <div className={styles.leftGroup} style={{ flex: 1 }}>
+              <Skeleton width="18px" height="18px" />
+              <Skeleton width="14px" height="14px" />
+              <Skeleton width="120px" height="16px" />
+              <Skeleton width="60px" height="14px" />
+            </div>
+            <div className={styles.actions}>
+              <Skeleton width="60px" height="24px" />
+            </div>
+          </div>
+        ))}
       </div>
     );
   }

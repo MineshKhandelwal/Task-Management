@@ -2,7 +2,7 @@
 
 import React, { Suspense, useState } from "react";
 import { PageShell, PageHeader } from "@/components/layout";
-import { Spinner } from "@/components/ui";
+import { Spinner, ErrorState } from "@/components/ui";
 import FilterBar from "@/components/task/FilterBar";
 import TaskFormModal from "@/components/task/TaskFormModal";
 import { KanbanBoard } from "@/components/kanban";
@@ -18,9 +18,19 @@ function BoardContent({
   onTaskClick: (task: TaskItem) => void;
 }) {
   const { filters } = useTaskFilters();
-  const { data: statusesData, isLoading: isLoadingStatuses } = useGetStatusesQuery();
+  const {
+    data: statusesData,
+    isLoading: isLoadingStatuses,
+    isError: isStatusesError,
+    refetch: refetchStatuses,
+  } = useGetStatusesQuery();
   // Fetch up to 100 tasks on board to avoid pagination fragmentation
-  const { data: tasksData, isLoading: isLoadingTasks } = useGetTasksQuery({
+  const {
+    data: tasksData,
+    isLoading: isLoadingTasks,
+    isError: isTasksError,
+    refetch: refetchTasks,
+  } = useGetTasksQuery({
     ...filters,
     limit: 100,
   });
@@ -28,6 +38,22 @@ function BoardContent({
   const statuses = statusesData || [];
   const tasks = tasksData?.tasks || [];
   const isLoading = isLoadingStatuses || isLoadingTasks;
+  const isError = isStatusesError || isTasksError;
+
+  if (isError) {
+    return (
+      <div style={{ padding: "48px 0" }}>
+        <ErrorState
+          title="Failed to load Kanban board"
+          message="Could not load columns or tasks. Please try again."
+          onRetry={() => {
+            refetchStatuses();
+            refetchTasks();
+          }}
+        />
+      </div>
+    );
+  }
 
   return (
     <>

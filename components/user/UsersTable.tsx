@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Avatar, ConfirmDialog, Spinner, EmptyState, useToast } from "@/components/ui";
+import { Avatar, ConfirmDialog, Skeleton, EmptyState, ErrorState, useToast } from "@/components/ui";
 import {
   useGetUsersQuery,
   useUpdateUserMutation,
@@ -16,7 +16,7 @@ export default function UsersTable() {
   const [userToDeactivate, setUserToDeactivate] = useState<UserItem | null>(null);
 
   const toast = useToast();
-  const { data: users, isLoading, error } = useGetUsersQuery({ isActive: "all" });
+  const { data: users, isLoading, error, refetch } = useGetUsersQuery({ isActive: "all" });
   const [updateUser, { isLoading: isUpdating }] = useUpdateUserMutation();
 
   const allUsers = users || [];
@@ -95,10 +95,24 @@ export default function UsersTable() {
             <div className={styles.colActions}>Actions</div>
           </div>
 
-          {isLoading ? (
-            <div style={{ padding: "40px", display: "flex", justifyContent: "center" }}>
-              <Spinner size="lg" />
+          {error ? (
+            <div style={{ padding: "32px 16px" }}>
+              <ErrorState
+                title="Failed to load users"
+                message="Could not load the users list. Please try again."
+                onRetry={refetch}
+              />
             </div>
+          ) : isLoading ? (
+            Array.from({ length: 4 }).map((_, i) => (
+              <div key={i} className={styles.dataRow}>
+                <div className={styles.colAvatar}><Skeleton width="32px" height="32px" /></div>
+                <div className={styles.colName}><Skeleton width="120px" height="16px" /></div>
+                <div className={styles.colEmail}><Skeleton width="180px" height="16px" /></div>
+                <div className={styles.colRole}><Skeleton width="80px" height="20px" borderRadius="2px" /></div>
+                <div className={styles.colActions}><Skeleton width="48px" height="16px" /></div>
+              </div>
+            ))
           ) : displayedUsers.length === 0 ? (
             <EmptyState
               title={`No ${activeTab} users found`}

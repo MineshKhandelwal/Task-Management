@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { PageShell, PageHeader } from "@/components/layout";
-import { Spinner } from "@/components/ui";
+import { Skeleton, ErrorState } from "@/components/ui";
 import {
   StatCard,
   StatusBarChart,
@@ -18,7 +18,7 @@ export default function DashboardPage() {
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const [taskToEdit, setTaskToEdit] = useState<TaskItem | null>(null);
 
-  const { data: stats, isLoading } = useGetDashboardStatsQuery();
+  const { data: stats, isLoading, error, refetch } = useGetDashboardStatsQuery();
 
   // Find in-progress count from byStatus if available
   const inProgressStatus = stats?.byStatus.find((s) =>
@@ -34,9 +34,44 @@ export default function DashboardPage() {
         onAction={() => setIsCreateOpen(true)}
       />
 
-      {isLoading || !stats ? (
-        <div className={styles.loadingWrapper}>
-          <Spinner size="lg" />
+      {error ? (
+        <div style={{ padding: "64px 0" }}>
+          <ErrorState
+            title="Failed to load dashboard metrics"
+            message="Could not load the statistics. Please try again."
+            onRetry={refetch}
+          />
+        </div>
+      ) : isLoading || !stats ? (
+        <div className={styles.container}>
+          <div className={styles.statsGrid}>
+            {[1, 2, 3, 4, 5].map((i) => (
+              <div key={i} style={{ height: "96px", backgroundColor: "var(--color-surface-container-lowest)", padding: "16px", borderRadius: "2px", border: "1px solid rgba(0,0,0,0.04)" }}>
+                <Skeleton width="40%" height="32px" />
+                <div style={{ marginTop: "12px" }}>
+                  <Skeleton width="60%" height="14px" />
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className={styles.twoColGrid}>
+            <div style={{ height: "240px", backgroundColor: "var(--color-surface-container-lowest)", borderRadius: "2px", padding: "16px" }}>
+              <Skeleton width="30%" height="20px" />
+              <div style={{ marginTop: "24px", display: "flex", flexDirection: "column", gap: "16px" }}>
+                <Skeleton width="100%" height="20px" />
+                <Skeleton width="80%" height="20px" />
+                <Skeleton width="90%" height="20px" />
+              </div>
+            </div>
+            <div style={{ height: "240px", backgroundColor: "var(--color-surface-container-lowest)", borderRadius: "2px", padding: "16px" }}>
+              <Skeleton width="30%" height="20px" />
+              <div style={{ marginTop: "24px", display: "flex", flexDirection: "column", gap: "16px" }}>
+                <Skeleton width="100%" height="20px" />
+                <Skeleton width="70%" height="20px" />
+                <Skeleton width="85%" height="20px" />
+              </div>
+            </div>
+          </div>
         </div>
       ) : (
         <div className={styles.container}>
