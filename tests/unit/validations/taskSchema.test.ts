@@ -45,6 +45,13 @@ describe("taskSchema validations", () => {
     });
   });
 
+  describe("updateTaskSchema", () => {
+    it("accepts partial updates", () => {
+      const parsed = updateTaskSchema.parse({ title: "Updated Title" });
+      expect(parsed.title).toBe("Updated Title");
+    });
+  });
+
   describe("taskListQuerySchema", () => {
     it("provides defaults for pagination and sorting", () => {
       const parsed = taskListQuerySchema.parse({});

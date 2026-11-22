@@ -7,6 +7,15 @@ const nextConfig: NextConfig = {
   sassOptions: {
     additionalData: `@use "@/styles/tokens" as *;`,
   },
+  async redirects() {
+    return [
+      {
+        source: "/settings",
+        destination: "/settings/users",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import styles from "./Modal.module.scss";
 
@@ -14,6 +14,8 @@ export interface ModalProps {
   className?: string;
 }
 
+const emptySubscribe = () => () => {};
+
 export default function Modal({
   isOpen,
   onClose,
@@ -23,12 +25,12 @@ export default function Modal({
   maxWidth,
   className,
 }: ModalProps) {
-  const [mounted, setMounted] = useState(false);
+  const mounted = React.useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
+  );
   const modalRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {

@@ -1,14 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { Skeleton, EmptyState, ErrorState } from "@/components/ui";
 import {
   useGetStatusesQuery,
   useUpdateStatusMutation,
   StatusItem,
 } from "@/store/services/statusesApi";
-import StatusFormModal from "./StatusFormModal";
-import StatusDeleteDialog from "./StatusDeleteDialog";
 import styles from "./StatusList.module.scss";
 
 interface StatusListProps {

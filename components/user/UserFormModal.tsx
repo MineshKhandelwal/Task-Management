@@ -1,13 +1,10 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Modal, Button, Input, Select, useToast } from "@/components/ui";
-import {
-  createUserSchema,
-  CreateUserInput,
-} from "@/lib/validations/userSchema";
+import { createUserSchema } from "@/lib/validations/userSchema";
 import {
   useCreateUserMutation,
   useUpdateUserMutation,
@@ -58,7 +55,7 @@ export default function UserFormModal({
     reset,
     formState: { errors },
   } = useForm<UserFormData>({
-    resolver: zodResolver(createUserSchema) as any,
+    resolver: zodResolver(createUserSchema) as unknown as Resolver<UserFormData>,
     defaultValues: {
       name: "",
       email: "",

@@ -21,7 +21,7 @@ describe("colorUtils", () => {
 
     it("returns default color for empty or invalid names", () => {
       expect(deriveAvatarColor("")).toBe(AVATAR_COLORS[0]);
-      expect(deriveAvatarColor(null as any)).toBe(AVATAR_COLORS[0]);
+      expect(deriveAvatarColor(null as unknown as string)).toBe(AVATAR_COLORS[0]);
     });
   });
 

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Modal, Button, Select, Spinner, useToast } from "@/components/ui";
 import {
   useGetStatusUsageQuery,
@@ -29,13 +29,8 @@ export default function StatusDeleteDialog({
     (s) => s._id !== statusToDelete?._id
   );
 
-  const [reassignTo, setReassignTo] = useState<string>("");
-
-  useEffect(() => {
-    if (otherStatuses.length > 0) {
-      setReassignTo(otherStatuses[0]._id);
-    }
-  }, [statusToDelete]);
+  const [selectedReassignTo, setSelectedReassignTo] = useState<string>("");
+  const targetReassignTo = selectedReassignTo || (otherStatuses[0]?._id ?? "");
 
   const { data: usageData, isLoading: isLoadingUsage } =
     useGetStatusUsageQuery(statusToDelete?._id || "", {
@@ -55,7 +50,7 @@ export default function StatusDeleteDialog({
       return;
     }
 
-    if (taskCount > 0 && !reassignTo) {
+    if (taskCount > 0 && !targetReassignTo) {
       toast.error("Please select a target status to reassign existing tasks.");
       return;
     }
@@ -63,7 +58,7 @@ export default function StatusDeleteDialog({
     try {
       const res = await deleteStatus({
         id: statusToDelete._id,
-        reassignTo: taskCount > 0 ? reassignTo : undefined,
+        reassignTo: taskCount > 0 ? targetReassignTo : undefined,
       }).unwrap();
 
       toast.success(res.message);
@@ -138,8 +133,8 @@ export default function StatusDeleteDialog({
                 </div>
                 <label className={styles.reassignLabel}>Reassign tasks to</label>
                 <Select
-                  value={reassignTo}
-                  onChange={(e) => setReassignTo(e.target.value)}
+                  value={targetReassignTo}
+                  onChange={(e) => setSelectedReassignTo(e.target.value)}
                   options={otherStatuses.map((s) => ({
                     value: s._id,
                     label: s.name,

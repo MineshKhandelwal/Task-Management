@@ -1,8 +1,8 @@
 import mongoose, { FilterQuery } from "mongoose";
 import { connectDB } from "@/lib/db";
 import Task, { ITask, Priority } from "@/lib/db/models/Task";
-import Status, { IStatus } from "@/lib/db/models/Status";
-import User, { IUser } from "@/lib/db/models/User";
+import Status from "@/lib/db/models/Status";
+import User from "@/lib/db/models/User";
 import {
   CreateTaskInput,
   UpdateTaskInput,

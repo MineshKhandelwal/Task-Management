@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Modal,
@@ -72,7 +72,7 @@ export default function TaskFormModal({
     reset,
     formState: { errors },
   } = useForm<TaskFormData>({
-    resolver: zodResolver(createTaskSchema) as any,
+    resolver: zodResolver(createTaskSchema) as unknown as Resolver<TaskFormData>,
     defaultValues: {
       title: "",
       description: "",

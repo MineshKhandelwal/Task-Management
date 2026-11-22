@@ -1,13 +1,10 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Modal, Button, Input, useToast } from "@/components/ui";
-import {
-  createStatusSchema,
-  CreateStatusInput,
-} from "@/lib/validations/statusSchema";
+import { createStatusSchema } from "@/lib/validations/statusSchema";
 import {
   useCreateStatusMutation,
   useUpdateStatusMutation,
@@ -64,7 +61,7 @@ export default function StatusFormModal({
     reset,
     formState: { errors },
   } = useForm<StatusFormData>({
-    resolver: zodResolver(createStatusSchema) as any,
+    resolver: zodResolver(createStatusSchema) as unknown as Resolver<StatusFormData>,
     defaultValues: {
       name: "",
       color: PRESET_COLORS[0],

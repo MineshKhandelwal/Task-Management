@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Link from "next/link";
 import { TaskItem } from "@/store/services/tasksApi";
 import { formatRelativeTime, formatDate } from "@/lib/utils/dateUtils";
@@ -11,15 +11,17 @@ interface RecentTasksListProps {
   onTaskClick?: (task: TaskItem) => void;
 }
 
+const emptySubscribe = () => () => {};
+
 export default function RecentTasksList({
   tasks,
   onTaskClick,
 }: RecentTasksListProps) {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const mounted = React.useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
+  );
 
   return (
     <div className={styles.container}>
