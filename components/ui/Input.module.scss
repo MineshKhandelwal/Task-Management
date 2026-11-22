@@ -1,0 +1,133 @@
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  width: 100%;
+}
+
+.label {
+  font-family: var(--font-sans);
+  font-size: var(--text-body-md);
+  line-height: var(--lh-body-md);
+  font-weight: var(--fw-label-md);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-label-md);
+  color: var(--color-on-surface-variant);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.required {
+  color: var(--color-error);
+}
+
+.inputWrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.input,
+.select,
+.textarea {
+  width: 100%;
+  background-color: var(--color-surface-container-lowest);
+  border: 1px solid var(--color-outline);
+  border-radius: var(--radius-none);
+  font-family: var(--font-sans);
+  font-size: var(--text-body-lg);
+  line-height: var(--lh-body-lg);
+  color: var(--color-on-surface);
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+
+  &::placeholder {
+    color: var(--color-outline);
+  }
+
+  &:focus {
+    outline: none;
+    border-color: var(--color-primary-container);
+    box-shadow: 0 0 0 1px var(--color-primary-container);
+  }
+
+  &.error {
+    border-color: var(--color-error);
+
+    &:focus {
+      border-color: var(--color-error);
+      box-shadow: 0 0 0 1px var(--color-error);
+    }
+  }
+
+  &:disabled {
+    background-color: var(--color-surface-dim);
+    color: var(--color-outline);
+    cursor: not-allowed;
+  }
+}
+
+.input,
+.select {
+  height: 40px;
+  padding-left: var(--space-sm);
+  padding-right: var(--space-sm);
+}
+
+.hasLeftIcon {
+  padding-left: 36px;
+}
+
+.hasRightIcon {
+  padding-right: 36px;
+}
+
+.leftIcon,
+.rightIcon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-outline);
+  font-size: 18px;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.leftIcon {
+  left: 10px;
+}
+
+.rightIcon {
+  right: 10px;
+}
+
+.textarea {
+  padding: var(--space-sm);
+  min-height: 80px;
+  resize: vertical;
+}
+
+.select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23424656'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  background-size: 20px;
+  padding-right: 32px;
+  cursor: pointer;
+}
+
+.errorMessage {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--color-error);
+}
+
+.helperText {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--color-on-surface-variant);
+}

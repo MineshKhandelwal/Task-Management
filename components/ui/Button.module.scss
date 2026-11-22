@@ -1,0 +1,130 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  font-family: var(--font-sans);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: var(--radius-none);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 150ms ease;
+  white-space: nowrap;
+  user-select: none;
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-container);
+    outline-offset: 2px;
+  }
+
+  &:disabled,
+  &.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}
+
+// Sizes
+.size-md {
+  height: 40px;
+  padding-left: var(--space-md);
+  padding-right: var(--space-md);
+  font-size: var(--text-label-lg);
+  line-height: var(--lh-label-lg);
+  font-weight: var(--fw-label-lg);
+
+  .icon {
+    font-size: 18px;
+  }
+}
+
+.size-sm {
+  height: 32px;
+  padding-left: var(--space-sm);
+  padding-right: var(--space-sm);
+  font-size: var(--text-label-md);
+  line-height: var(--lh-label-md);
+  font-weight: var(--fw-label-md);
+
+  .icon {
+    font-size: 16px;
+  }
+}
+
+.size-icon {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  .icon {
+    font-size: 18px;
+  }
+}
+
+// Variants
+.variant-primary {
+  background-color: var(--color-primary-container);
+  color: var(--color-on-primary);
+
+  &:hover:not(:disabled) {
+    background-color: var(--color-primary);
+  }
+}
+
+.variant-secondary {
+  background-color: var(--color-surface-container-high);
+  color: var(--color-on-surface);
+
+  &:hover:not(:disabled) {
+    background-color: var(--color-surface-container);
+  }
+}
+
+.variant-ghost {
+  background-color: transparent;
+  color: var(--color-primary-container);
+
+  &:hover:not(:disabled) {
+    background-color: rgba(15, 98, 254, 0.08);
+  }
+}
+
+.variant-danger {
+  background-color: var(--color-error-container);
+  color: var(--color-on-error-container);
+
+  &:hover:not(:disabled) {
+    background-color: var(--color-error);
+    color: var(--color-on-error);
+  }
+}
+
+.variant-outline {
+  background-color: transparent;
+  border-color: var(--color-outline);
+  color: var(--color-on-surface);
+
+  &:hover:not(:disabled) {
+    background-color: var(--color-surface-container-low);
+  }
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spin 600ms linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

@@ -1,0 +1,54 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: var(--space-sm);
+  padding-right: var(--space-sm);
+  height: 20px;
+  border-radius: var(--radius-sm); // 2px strictly
+  font-family: var(--font-sans);
+  font-size: var(--text-label-md);
+  line-height: 1;
+  font-weight: var(--fw-label-md);
+  letter-spacing: var(--ls-label-md);
+  text-transform: uppercase;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.size-lg {
+  height: 24px;
+  padding-left: var(--space-md);
+  padding-right: var(--space-md);
+}
+
+.priorityBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-family: var(--font-sans);
+  font-size: var(--text-body-md);
+  line-height: var(--lh-body-md);
+  color: var(--color-on-surface);
+  white-space: nowrap;
+}
+
+.priorityDot {
+  width: 8px;
+  height: 8px;
+  display: inline-block;
+  border-radius: var(--radius-none); // Square dot per design system!
+  flex-shrink: 0;
+
+  &.high {
+    background-color: var(--color-error);
+  }
+
+  &.medium {
+    background-color: var(--color-tertiary-container);
+  }
+
+  &.low {
+    background-color: var(--color-outline);
+  }
+}

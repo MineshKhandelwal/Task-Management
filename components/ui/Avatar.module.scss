@@ -1,0 +1,37 @@
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-none); // Strictly 0px square
+  font-family: var(--font-sans);
+  color: var(--color-on-primary);
+  user-select: none;
+  flex-shrink: 0;
+  line-height: 1;
+
+  &.inactive {
+    background-color: var(--color-surface-dim) !important;
+    color: var(--color-on-surface-variant) !important;
+  }
+}
+
+.size-sm {
+  width: 20px;
+  height: 20px;
+  font-size: 10px;
+  font-weight: var(--fw-label-md);
+}
+
+.size-md {
+  width: 24px;
+  height: 24px;
+  font-size: var(--text-label-sm);
+  font-weight: var(--fw-label-md);
+}
+
+.size-lg {
+  width: 32px;
+  height: 32px;
+  font-size: var(--text-label-md);
+  font-weight: var(--fw-label-md);
+}
