@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import styles from "./Navbar.module.scss";
 import UserSwitcherDropdown, { UserSummary } from "./UserSwitcherDropdown";
 import MobileNav from "./MobileNav";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
 
 export type NavPage = "dashboard" | "tasks" | "board" | "settings";
 
@@ -16,24 +17,42 @@ interface NavbarProps {
   onSelectUser?: (user: UserSummary) => void;
 }
 
-const DEFAULT_USERS: UserSummary[] = [
-  { id: "u-1", name: "Alex Kim", email: "alex.kim@taskflow.io", initials: "AK" },
-  { id: "u-2", name: "Sarah Chen", email: "sarah.chen@taskflow.io", initials: "SC" },
-  { id: "u-3", name: "Marcus Rodriguez", email: "marcus.r@taskflow.io", initials: "MR" },
-  { id: "u-4", name: "Priya Patel", email: "priya.p@taskflow.io", initials: "PP" },
-  { id: "u-5", name: "David Kim", email: "david.k@taskflow.io", initials: "DK" },
-];
-
 export default function Navbar({
   currentPage,
-  currentUser = DEFAULT_USERS[0],
-  users = DEFAULT_USERS,
-  onSelectUser,
+  currentUser: propCurrentUser,
+  users: propUsers,
+  onSelectUser: propOnSelectUser,
 }: NavbarProps) {
   const pathname = usePathname();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
-  const [activeUser, setActiveUser] = useState<UserSummary>(currentUser);
+
+  // Hook into Redux store current user
+  const {
+    currentUser: hookCurrentUser,
+    allUsers: hookAllUsers,
+    setCurrentUser: hookSetCurrentUser,
+  } = useCurrentUser();
+
+  const activeUser: UserSummary = propCurrentUser || hookCurrentUser || {
+    id: "default",
+    name: "Alex Kim",
+    email: "alex.kim@taskflow.io",
+    initials: "AK",
+    color: "#0f62fe",
+  };
+
+  const usersList: UserSummary[] =
+    propUsers ||
+    (hookAllUsers.length > 0
+      ? hookAllUsers.map((u) => ({
+          id: u.id,
+          name: u.name,
+          email: u.email,
+          initials: u.initials,
+          color: u.avatarColor,
+        }))
+      : [activeUser]);
 
   // Determine current active page
   const resolvedPage: NavPage =
@@ -47,9 +66,15 @@ export default function Navbar({
       : "dashboard");
 
   const handleUserSelect = (user: UserSummary) => {
-    setActiveUser(user);
-    if (onSelectUser) {
-      onSelectUser(user);
+    hookSetCurrentUser({
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      initials: user.initials,
+      avatarColor: user.color,
+    });
+    if (propOnSelectUser) {
+      propOnSelectUser(user);
     }
   };
 
@@ -129,7 +154,7 @@ export default function Navbar({
               isOpen={isDropdownOpen}
               onClose={() => setIsDropdownOpen(false)}
               currentUser={activeUser}
-              users={users}
+              users={usersList}
               onSelectUser={handleUserSelect}
             />
 

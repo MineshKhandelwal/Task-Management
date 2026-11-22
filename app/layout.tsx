@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "@/styles/globals.scss";
 import { ToastProvider } from "@/components/ui";
+import { StoreProvider } from "@/store/provider";
 
 export const metadata: Metadata = {
   title: "TaskFlow — Enterprise Task Management",
@@ -35,7 +36,9 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <ToastProvider>{children}</ToastProvider>
+        <StoreProvider>
+          <ToastProvider>{children}</ToastProvider>
+        </StoreProvider>
       </body>
     </html>
   );
