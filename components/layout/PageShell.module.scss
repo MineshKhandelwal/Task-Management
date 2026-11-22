@@ -1,0 +1,32 @@
+.wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-surface-container-low);
+}
+
+.main {
+  width: 100%;
+  flex: 1;
+  padding-top: 48px; // navbar height
+  padding-left: var(--space-margin);
+  padding-right: var(--space-margin);
+  background-color: var(--color-surface-container-low);
+
+  @include mobile {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+.content {
+  width: 100%;
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  padding-top: var(--space-lg);
+  padding-bottom: var(--space-lg);
+  gap: var(--space-lg);
+}

@@ -1,0 +1,25 @@
+.footer {
+  width: 100%;
+  background-color: var(--color-surface-container-lowest);
+  padding-top: var(--space-md);
+  padding-bottom: var(--space-md);
+  padding-left: var(--space-margin);
+  padding-right: var(--space-margin);
+  border-top: 1px solid var(--color-outline-variant);
+
+  @include mobile {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+.inner {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-sans);
+  font-size: var(--text-body-md);
+  line-height: var(--lh-body-md);
+  color: var(--color-on-surface-variant);
+}

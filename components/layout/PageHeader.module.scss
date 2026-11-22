@@ -1,0 +1,75 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  width: 100%;
+
+  @include mobile {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.titleGroup {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.title {
+  font-family: var(--font-sans);
+  font-size: var(--text-headline-lg);
+  line-height: var(--lh-headline-lg);
+  font-weight: var(--fw-headline-lg);
+  color: var(--color-on-surface);
+}
+
+.badge {
+  font-family: var(--font-mono);
+  font-size: var(--text-code-md);
+  line-height: var(--lh-code-md);
+  color: var(--color-on-surface-variant);
+}
+
+.actionBtn {
+  height: 40px;
+  padding-left: var(--space-md);
+  padding-right: var(--space-md);
+  background-color: var(--color-primary-container);
+  color: var(--color-on-primary);
+  font-family: var(--font-sans);
+  font-size: var(--text-label-lg);
+  line-height: var(--lh-label-lg);
+  font-weight: var(--fw-label-lg);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: var(--radius-none);
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  cursor: pointer;
+  transition: background-color 150ms ease;
+  white-space: nowrap;
+
+  &:hover {
+    background-color: var(--color-primary);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-container);
+    outline-offset: 2px;
+  }
+
+  .icon {
+    font-size: 18px;
+    line-height: 1;
+  }
+
+  @include mobile {
+    width: 100%;
+    justify-content: center;
+  }
+}
